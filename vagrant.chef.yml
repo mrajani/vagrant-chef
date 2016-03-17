@@ -1,0 +1,92 @@
+---
+defaults: &defaults
+  box: bento/centos-6.7
+  memory: 512
+  shared_path : &shared_path
+    ~/Documents/Git/learnvagrant/shared
+  sync_folders: &folders
+    "~/Documents/Git/learnvagrant/shared" : "/shared"
+nodes:
+  chefserver:
+    << : *defaults
+    sync_folders:
+      << : *folders
+      "~/Downloads" : "/downloads"
+    hostname: chefserver12.iono.vm
+    memory: 1024
+    networks:
+      - private_network:
+          ip: 192.168.128.201
+    provisioners: &provisioners
+      file:
+        -
+          source:
+            /Users/mrajani/.gitconfig
+          destination:
+            /home/vagrant/.gitconfig
+        -
+          source:
+            "~/Downloads/chef-server-core-12.4.1-1.el6.x86_64.rpm"
+          destination:
+            "/home/vagrant/chef-server-core-12.4.1-1.el6.x86_64.rpm"
+      shell:
+        -
+          path: "~/Documents/Git/learnvagrant/shared/chefserver12.sh"
+          args:
+            - value: "chef-server-core-12.4.1-1.el6.x86_64.rpm"
+            - value: centos
+        -
+          path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"
+        -
+          path: "~/Documents/Git/learnvagrant/shared/gitinstall.sh"
+          args:
+            - value: centos
+
+  chefws:
+    << : *defaults
+    hostname: chefws.iono.vm
+    networks:
+      - private_network:
+          ip: 192.168.128.202
+    provisioners:
+      file:
+        -
+          source:
+            /Users/mrajani/.gitconfig
+          destination:
+            /home/vagrant/.gitconfig
+      shell:
+        -
+          path: "~/Documents/Git/learnvagrant/shared/chefws.sh"
+        -
+          path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"
+        -
+          path: "~/Documents/Git/learnvagrant/shared/gitinstall.sh"
+          args:
+            - value: centos
+        -
+          path: "~/Documents/Git/learnvagrant/shared/provision.sh"
+
+
+  node-1:
+    << : *defaults
+    hostname: node-1.iono.vm
+    networks:
+      - private_network:
+          ip: 192.168.128.203
+    provisioners:
+      file:
+        -
+          source:
+            /Users/mrajani/.gitconfig
+          destination:
+            /home/vagrant/.gitconfig
+      shell:
+        -
+          path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"
+        -
+          path: "~/Documents/Git/learnvagrant/shared/gitinstall.sh"
+          args:
+            - value: centos
+        -
+          path: "~/Documents/Git/learnvagrant/shared/provision.sh"

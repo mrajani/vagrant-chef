@@ -55,9 +55,17 @@ nodes:
             /Users/mrajani/.gitconfig
           destination:
             /home/vagrant/.gitconfig
+        -
+          source:
+            "~/Downloads/chefdk-0.11.2-1.el6.x86_64.rpm"
+          destination:
+            "/home/vagrant/chefdk-0.11.2-1.el6.x86_64.rpm"
       shell:
         -
           path: "~/Documents/Git/learnvagrant/shared/chefws.sh"
+          args:
+            - value: "chefdk-0.11.2-1.el6.x86_64.rpm"
+            - value: centos
         -
           path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"
         -

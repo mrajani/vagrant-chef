@@ -1,6 +1,6 @@
 ---
 defaults: &defaults
-  box: bento/centos-6.7
+  box: bento/centos-7.2
   memory: 512
   shared_path : &shared_path
     ~/Documents/Git/learnvagrant/shared
@@ -26,14 +26,14 @@ nodes:
             /home/vagrant/.gitconfig
         -
           source:
-            "~/Downloads/chef-server-core-12.4.1-1.el6.x86_64.rpm"
+            "~/Downloads/chef-server-core-12.4.1-1.el7.x86_64.rpm"
           destination:
-            "/home/vagrant/chef-server-core-12.4.1-1.el6.x86_64.rpm"
+            "/home/vagrant/chef-server-core-12.4.1-1.el7.x86_64.rpm"
       shell:
         -
           path: "~/Documents/Git/learnvagrant/shared/chefserver12.sh"
           args:
-            - value: "chef-server-core-12.4.1-1.el6.x86_64.rpm"
+            - value: "chef-server-core-12.4.1-1.el7.x86_64.rpm"
             - value: centos
         -
           path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"
@@ -57,14 +57,14 @@ nodes:
             /home/vagrant/.gitconfig
         -
           source:
-            "~/Downloads/chefdk-0.11.2-1.el6.x86_64.rpm"
+            "~/Downloads/chefdk-0.12.0-1.el7.x86_64.rpm"
           destination:
-            "/home/vagrant/chefdk-0.11.2-1.el6.x86_64.rpm"
+            "/home/vagrant/chefdk-0.12.0-1.el7.x86_64.rpm"
       shell:
         -
           path: "~/Documents/Git/learnvagrant/shared/chefws.sh"
           args:
-            - value: "chefdk-0.11.2-1.el6.x86_64.rpm"
+            - value: "chefdk-0.12.0-1.el7.x86_64.rpm"
             - value: centos
         -
           path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"

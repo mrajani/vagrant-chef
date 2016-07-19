@@ -26,14 +26,14 @@ nodes:
             /home/vagrant/.gitconfig
         -
           source:
-            "~/Downloads/chef-server-core-12.4.1-1.el7.x86_64.rpm"
+            "~/Downloads/chef-server-core-12.8.0-1.el7.x86_64.rpm"
           destination:
-            "/home/vagrant/chef-server-core-12.4.1-1.el7.x86_64.rpm"
+            "/home/vagrant/chef-server-core-12.8.0-1.el7.x86_64.rpm"
       shell:
         -
           path: "~/Documents/Git/learnvagrant/shared/chefserver12.sh"
           args:
-            - value: "chef-server-core-12.4.1-1.el7.x86_64.rpm"
+            - value: "chef-server-core-12.8.0-1.el7.x86_64.rpm"
             - value: centos
         -
           path: "~/Documents/Git/learnvagrant/shared/gitsetup.sh"

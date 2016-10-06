@@ -1,0 +1,63 @@
+---
+provisioners: &provref
+  script_folder: ~/Documents/Git/learnvagrant/shared/
+  shell: &scripts
+    script1: gitinstall.sh
+    script2: gitsetup.sh
+    
+nodes:
+  - hostname: chefserver.iono.box
+    aliases: chefserver
+    box: boxcutter/centos72
+    os: centos
+    memory: 2048
+    ip: 192.168.128.40
+    provisioners:
+      <<: *provref
+      shell:
+       <<: *scripts
+       local: ./chefserver12.sh
+
+  - hostname: chefws.iono.box
+    aliases: chefws
+    box: boxcutter/centos72
+    os: centos
+    memory: 512
+    ip: 192.168.128.41
+    provisioners:
+      <<: *provref
+      shell:
+        <<: *scripts
+        local: ./chefws.sh
+
+  - hostname: client13.iono.box
+    aliases: client13
+    box: boxcutter/centos72
+    os: centos
+    release: centos
+    memory: 512
+    ip: 192.168.128.113
+    provisioners: *provref
+
+
+  - hostname: client14.iono.box
+    aliases: client14
+    box: ubuntu/xenial64
+    os: ubuntu
+    release: xenial
+    memory: 512
+    ip: 192.168.128.114
+    provisioners: *provref
+
+  - hostname: client15.iono.box
+    aliases: client15
+    box: ubuntu/trusty64
+    os: ubuntu
+    release: trusty
+    memory: 512
+    ip: 192.168.128.115
+    provisioners: *provref
+      # <<: *provref
+      # shell:
+      #   <<: *scripts
+      #   script4: provision.sh

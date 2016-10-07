@@ -25,7 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       script_folder = "#{node['provisioners']['script_folder']}"
       guest.vm.synced_folder script_folder, "/shared"
       node['provisioners']['shell'] && node['provisioners']['shell'].each do |key, value|
-        guest.vm.provision :shell do |sh|
+        # name the provision script with key script1,script2,local1
+        guest.vm.provision "#{key}", type: "shell" do |sh|
           sh.path = "#{script_folder}#{value}" if (key =~ /^script\d/)
           sh.path = "#{value}" if (key =~ /local/)
           os      = node['os'] if defined?(node['os'])

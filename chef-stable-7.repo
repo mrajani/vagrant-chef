@@ -1,0 +1,6 @@
+# Works for CentOS 7 family yum repo for chef.io
+[chef-stable]
+name=chef-stable
+baseurl=https://packages.chef.io/stable-yum/el/7/\$basearch/
+gpgcheck=1
+enabled=1

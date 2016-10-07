@@ -7,4 +7,7 @@ knife data bag create vhosts
 # Put the sync-all in
 mkdir -p .chef/plugins/knife
 cp /vagrant/sync-all.rb .chef/plugins/knife
+cd chef-repo
 knife sync-all --all
+# Create ssh keys to share
+ssh-keygen -t rsa -b 2048 -f /home/vagrant/.ssh/chefws -N ""

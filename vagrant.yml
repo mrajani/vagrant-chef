@@ -4,7 +4,7 @@ provisioners: &provref
   shell: &scripts
     script1: gitinstall.sh
     script2: gitsetup.sh
-    
+
 nodes:
   - hostname: chefserver.iono.box
     aliases: chefserver
@@ -16,7 +16,7 @@ nodes:
       <<: *provref
       shell:
        <<: *scripts
-       local: ./chefserver12.sh
+       local1: chefserver12.sh
 
   - hostname: chefws.iono.box
     aliases: chefws
@@ -28,7 +28,7 @@ nodes:
       <<: *provref
       shell:
         <<: *scripts
-        local: ./chefws.sh
+        local1: chefws.sh
 
   - hostname: client13.iono.box
     aliases: client13

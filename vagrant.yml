@@ -10,8 +10,8 @@ nodes:
     aliases: chefserver
     box: boxcutter/centos72
     os: centos
-    memory: 2048
-    ip: 192.168.128.40
+    memory: 1024
+    ip: 172.30.0.40
     provisioners:
       <<: *provref
       shell:
@@ -23,12 +23,14 @@ nodes:
     box: boxcutter/centos72
     os: centos
     memory: 512
-    ip: 192.168.128.41
+    ip: 172.30.0.41
     provisioners:
       <<: *provref
       shell:
         <<: *scripts
-        local1: chefws.sh
+        local1: install_chefdk.sh
+        local2: chefws.sh
+        local3: setupws.sh
 
   - hostname: client13.iono.box
     aliases: client13
@@ -36,9 +38,8 @@ nodes:
     os: centos
     release: centos
     memory: 512
-    ip: 192.168.128.113
+    ip: 172.30.0.113
     provisioners: *provref
-
 
   - hostname: client14.iono.box
     aliases: client14
@@ -46,7 +47,7 @@ nodes:
     os: ubuntu
     release: xenial
     memory: 512
-    ip: 192.168.128.114
+    ip: 172.30.0.114
     provisioners: *provref
 
   - hostname: client15.iono.box
@@ -55,7 +56,7 @@ nodes:
     os: ubuntu
     release: trusty
     memory: 512
-    ip: 192.168.128.115
+    ip: 172.30.0.115
     provisioners: *provref
       # <<: *provref
       # shell:

@@ -1,4 +1,5 @@
 #!/bin/bash
+## Chef Server is installed in Centos
 user=chefadmin
 userpw=vagrant
 username='Chef Admin'
@@ -7,14 +8,14 @@ userpem=/vagrant/${user}.pem
 org=iono-org
 orgpem=/vagrant/${org}-validator.pem
 
-chefpkg=/vagrant/chef-server-core-12.9.1-1.el7.x86_64.rpm
+chefpkg=/vagrant/chef-server-core-12.17.15-1.el7.x86_64.rpm
 # Install key to verify package
 sudo rpm --import https://downloads.chef.io/packages-chef-io-public.key
 # Copy chef-repo
 sudo cp /vagrant/chef-stable-7.repo /etc/yum.repos.d/chef-stable.repo
 echo "Running yum update install ntp yum-utils crontabs, may take upto 4 mins"
 sudo yum update -q -y
-sudo yum install -q -y ntp yum-utils crontabs tree
+sudo yum install -q -y ntp yum-utils crontabs tree vim
 # Format the package name in rpm
 RPM=$(repoquery --qf="%{name}-%{version}-%{release}.%{arch}" chef-server-core)
 RPM="${RPM}.rpm"
@@ -31,13 +32,17 @@ fi
 sudo rpm -iv $RPM
 sudo chef-server-ctl reconfigure
 # sudo chef-server-ctl test
+echo "Waiting for services..."
+until (curl -D - http://localhost:8000/_status) | grep "200 OK"; do sleep 15s; done
+while (curl http://localhost:8000/_status) | grep "fail"; do sleep 15s; done
+
 sudo chef-server-ctl install chef-manage
 sudo chef-server-ctl reconfigure
 sudo chef-manage-ctl reconfigure --accept-license
 
-sudo chef-server-ctl install opscode-reporting
-sudo chef-server-ctl reconfigure
-sudo opscode-reporting-ctl reconfigure --accept-license
+#sudo chef-server-ctl install opscode-reporting
+#sudo chef-server-ctl reconfigure
+#sudo opscode-reporting-ctl reconfigure --accept-license
 
 sudo chef-server-ctl user-create ${user} ${username} ${email} ${userpw} \
   -f ${userpem}
